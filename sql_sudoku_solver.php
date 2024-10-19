@@ -99,12 +99,16 @@ function check_if_valid_inp_sudoku($sudoku_array){
         die("Col $check_valid_col not valid");
     }
 
-    // $check_valid_3x3 = check_if_valid_3x3($sudoku_array);
-    // if($check_valid_3x3 != 0){
-    //     die("3x3 $check_valid_3x3 not valid");
-    // }
+    $check_valid_3x3 = check_if_valid_3x3($sudoku_array);
+    if($check_valid_3x3 != 0){
+        die("Box $check_valid_3x3 not valid");
+    }
 
     //TODO: Check to see if same number appears within 3x3 square
+    $brute_force_solver = brute_force_solver($sudoku_array);
+    if($brute_force_solver != 0){
+        die("brute force failed");
+    }
 }
 
 //Function checks row passed through param
@@ -141,9 +145,10 @@ function check_if_valid_row($arr){
     return 0;
 }
 
-//Function checks entire array passed through param
-//If column is valid Return: 0
-//If column is not valid Return: Column index
+//Function checks entire array for valid columns
+//Return: 0 -Valid Columns
+//Return: Column index -At least 1 column invalid
+//Param: entire sudoku arr
 function check_if_valid_col($arr){
     //Could be made with nested for loop
     //If column for loop control is on the outer for loop
@@ -198,28 +203,35 @@ function check_if_valid_3x3($arr){
                 7 => 0,
                 8 => 0,
                 9 => 0);
-            if($x != 0){
-                $addbyX = 3;
+            if($x == 0){
+                $addYbyX = 0;
+            }elseif($x == 1){
+                $addYbyX = 3;
             }else{
-                $addbyX = 0;
+                $addYbyX = 6;
             }
-            if($y != 0){
-                $addbyY = 27;
+            if($y == 0){
+                $addYbyY = 0;
+                $addXbyY = 0;
+            }elseif($y == 1){
+                $addYbyY = 27;
+                $addXbyY = 3;
             }else{
-                $addbyY = 0;
+                $addYbyY = 54;
+                $addXbyY = 6;
             }
-            echo "arr[".$y."][".$addbyX+$addby."]:".$arr[0+$y][0+$addbyX+$addbyY];
-            $check_3x3_array[$arr[0+$y][0+$addbyX+$addbyY]]++;
-            $check_3x3_array[$arr[0+$y][1+$addbyX+$addbyY]]++;
-            $check_3x3_array[$arr[0+$y][2+$addbyX+$addbyY]]++;
 
-            $check_3x3_array[$arr[1+$y][9+$addbyX+$addbyY]]++;
-            $check_3x3_array[$arr[1+$y][10+$addbyX+$addbyY]]++;
-            $check_3x3_array[$arr[1+$y][11+$addbyX+$addbyY]]++;
+            $check_3x3_array[$arr[0+$addXbyY][0+$addYbyX+$addYbyY]]++;
+            $check_3x3_array[$arr[0+$addXbyY][1+$addYbyX+$addYbyY]]++;
+            $check_3x3_array[$arr[0+$addXbyY][2+$addYbyX+$addYbyY]]++;
 
-            $check_3x3_array[$arr[2+$y][19+$addbyX+$addbyY]]++;
-            $check_3x3_array[$arr[2+$y][20+$addbyX+$addbyY]]++;
-            $check_3x3_array[$arr[2+$y][21+$addbyX+$addbyY]]++;
+            $check_3x3_array[$arr[1+$addXbyY][9+$addYbyX+$addYbyY]]++;
+            $check_3x3_array[$arr[1+$addXbyY][10+$addYbyX+$addYbyY]]++;
+            $check_3x3_array[$arr[1+$addXbyY][11+$addYbyX+$addYbyY]]++;
+
+            $check_3x3_array[$arr[2+$addXbyY][18+$addYbyX+$addYbyY]]++;
+            $check_3x3_array[$arr[2+$addXbyY][19+$addYbyX+$addYbyY]]++;
+            $check_3x3_array[$arr[2+$addXbyY][20+$addYbyX+$addYbyY]]++;
 
             //If stored value is greater than 1 then it has more than 1 of the same numbers in the column
             //Return for loop control + 1 to get column not valid
@@ -234,7 +246,7 @@ function check_if_valid_3x3($arr){
     return 0;
 }
 //45 is the sum of 1-9
-function brute_force_solver($sudoku_array){
+function brute_force_solver($arr){
 
 }
 
