@@ -13,7 +13,7 @@ function convert_inArr_to_2dArr($searcharray){
     $counterRow = 0;
     $counterCol = 0;
 
-    //$x is key example: cell_id_1
+    //$x is key example: cell_id_1_2
     //$y is value example: '' or 1-9
     foreach($searcharray as $x => $y){
         //explode to make array of length 3
@@ -34,13 +34,11 @@ function convert_inArr_to_2dArr($searcharray){
         $counterCol++;
 
         //Make new row in array when Cell_ID % 9 equal 0
-        if($num[2] % 9 == 0){
+        if($num[3] == 8){
             $counterRow++;
             $counterCol = 0;
         }
     }
-
-    //print_r($sudoku_array);
 
     //Check to see if input puzzle is valid
     check_if_valid_inp_sudoku($sudoku_array);
@@ -289,7 +287,7 @@ function brute_force_solver(&$sudoku_array,$rowCnt,$columnCnt,$solved){
         for($x=1;$x<=9;$x++){
             $sudoku_array[$rowCnt][$columnCnt] = $x;
 
-            //echo "<script>document.getElementByID('').value = $x;</script>"
+            //echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js'>document.getElementByID('cell_id_".$rowCnt."_".$columnCnt."').value = $x;</script>";
 
             if(check_if_valid_row($sudoku_array) == 0 && check_if_valid_col($sudoku_array) == 0 && check_if_valid_3x3($sudoku_array) == 0){
                 brute_force_solver($sudoku_array,$rowCnt,$columnCnt+1,$solved);
@@ -306,6 +304,8 @@ function brute_force_solver(&$sudoku_array,$rowCnt,$columnCnt,$solved){
     }
 }
 
+
+//By Lajuan <3
 function test_solver(&$board, $r, $c) {
     global $solved_sudoku_array;
     if ($r == 9) {

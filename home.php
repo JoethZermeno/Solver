@@ -2,37 +2,6 @@
 //Start server php -S 127.0.0.1:8000
 //http://127.0.0.1:8000/home.php
 //Test
-
-//Building the Table for sudoku
-$html = '';
-for($x=1;$x<9*9+1;$x++){
-    // < -> &lt;
-    // > -> &gt;
-
-    $temp = '';
-
-    if($x % 9 == 1){
-        $temp .= "left_border ";
-    }
-    if($x <= 9){
-        $temp .= "top_border ";
-    }
-    if($x % 9 == 0 || $x % 9 == 3 || $x % 9 == 6){
-        $temp .= "right_border ";
-    }
-    if($x >= 73 || ($x >= 19 && $x <=27) || ($x >= 46 && $x <=54)){
-        $temp .= "bottom_border ";
-    }
-
-    $html .= "&lt;td class='$temp'&gt; <br>";
-    $html .= "&lt;input type=\"number\" id=\"cell_id_$x\" name=\"cell_id_$x\" class=\"cell_inp\" maxlength=\"1\" size=\"1\" min=\"1\" max=\"9\"&gt; <br>";
-    $html .= "&lt;/td&gt; <br>";
-
-    if($x%9==0){
-        $html .= '&lt;/tr&gt; <br> &lt;tr&gt;<br>';
-    }
-}
-//echo $html;
 ?>
 
 <!DOCTYPE html>
@@ -41,13 +10,15 @@ for($x=1;$x<9*9+1;$x++){
         function solveSudoku(){
 
             var checkValid = true;
-            for(let x = 1; x < 9*9; x++){
-                var value = document.getElementById("cell_id_"+x).value;
-                if(value.length == 1 || value == ''){
-                    
-                }else{
-                    checkValid = false;
-                    alert('Value: '+value+' is not valid please enter nothing or a number between 1-9');
+            for(let x = 0; x < 9; x++){
+                for(let y = 0; y < 9; y++){
+                    var value = document.getElementById("cell_id_"+x+"_"+y).value;
+                    if(value.length == 1 || value == ''){
+                        
+                    }else{
+                        checkValid = false;
+                        alert('Value: '+value+' is not valid please enter nothing or a number between 1-9');
+                    }
                 }
             }
 
@@ -105,266 +76,39 @@ for($x=1;$x<9*9+1;$x++){
             <div class="container">
                 <table class="container_Table">
                     <tr>
-                        <td class='left_border top_border '>
-                            <input type="number" id="cell_id_1" name="cell_id_1" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='top_border '>
-                            <input type="number" id="cell_id_2" name="cell_id_2" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='top_border right_border '>
-                            <input type="number" id="cell_id_3" name="cell_id_3" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='top_border '>
-                            <input type="number" id="cell_id_4" name="cell_id_4" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='top_border '>
-                            <input type="number" id="cell_id_5" name="cell_id_5" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='top_border right_border '>
-                            <input type="number" id="cell_id_6" name="cell_id_6" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='top_border '>
-                            <input type="number" id="cell_id_7" name="cell_id_7" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='top_border '>
-                            <input type="number" id="cell_id_8" name="cell_id_8" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='top_border right_border '>
-                            <input type="number" id="cell_id_9" name="cell_id_9" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='left_border '>
-                            <input type="number" id="cell_id_10" name="cell_id_10" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_11" name="cell_id_11" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border '>
-                            <input type="number" id="cell_id_12" name="cell_id_12" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_13" name="cell_id_13" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_14" name="cell_id_14" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border '>
-                            <input type="number" id="cell_id_15" name="cell_id_15" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_16" name="cell_id_16" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_17" name="cell_id_17" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border '>
-                            <input type="number" id="cell_id_18" name="cell_id_18" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='left_border bottom_border '>
-                            <input type="number" id="cell_id_19" name="cell_id_19" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='bottom_border '>
-                            <input type="number" id="cell_id_20" name="cell_id_20" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border bottom_border '>
-                            <input type="number" id="cell_id_21" name="cell_id_21" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='bottom_border '>
-                            <input type="number" id="cell_id_22" name="cell_id_22" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='bottom_border '>
-                            <input type="number" id="cell_id_23" name="cell_id_23" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border bottom_border '>
-                            <input type="number" id="cell_id_24" name="cell_id_24" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='bottom_border '>
-                            <input type="number" id="cell_id_25" name="cell_id_25" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='bottom_border '>
-                            <input type="number" id="cell_id_26" name="cell_id_26" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border bottom_border '>
-                            <input type="number" id="cell_id_27" name="cell_id_27" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='left_border '>
-                            <input type="number" id="cell_id_28" name="cell_id_28" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_29" name="cell_id_29" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border '>
-                            <input type="number" id="cell_id_30" name="cell_id_30" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_31" name="cell_id_31" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_32" name="cell_id_32" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border '>
-                            <input type="number" id="cell_id_33" name="cell_id_33" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_34" name="cell_id_34" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_35" name="cell_id_35" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border '>
-                            <input type="number" id="cell_id_36" name="cell_id_36" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='left_border '>
-                            <input type="number" id="cell_id_37" name="cell_id_37" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_38" name="cell_id_38" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border '>
-                            <input type="number" id="cell_id_39" name="cell_id_39" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_40" name="cell_id_40" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_41" name="cell_id_41" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border '>
-                            <input type="number" id="cell_id_42" name="cell_id_42" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_43" name="cell_id_43" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_44" name="cell_id_44" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border '>
-                            <input type="number" id="cell_id_45" name="cell_id_45" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='left_border bottom_border '>
-                            <input type="number" id="cell_id_46" name="cell_id_46" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='bottom_border '>
-                            <input type="number" id="cell_id_47" name="cell_id_47" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border bottom_border '>
-                            <input type="number" id="cell_id_48" name="cell_id_48" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='bottom_border '>
-                            <input type="number" id="cell_id_49" name="cell_id_49" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='bottom_border '>
-                            <input type="number" id="cell_id_50" name="cell_id_50" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border bottom_border '>
-                            <input type="number" id="cell_id_51" name="cell_id_51" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='bottom_border '>
-                            <input type="number" id="cell_id_52" name="cell_id_52" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='bottom_border '>
-                            <input type="number" id="cell_id_53" name="cell_id_53" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border bottom_border '>
-                            <input type="number" id="cell_id_54" name="cell_id_54" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='left_border '>
-                            <input type="number" id="cell_id_55" name="cell_id_55" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_56" name="cell_id_56" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border '>
-                            <input type="number" id="cell_id_57" name="cell_id_57" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_58" name="cell_id_58" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_59" name="cell_id_59" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border '>
-                            <input type="number" id="cell_id_60" name="cell_id_60" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_61" name="cell_id_61" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_62" name="cell_id_62" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border '>
-                            <input type="number" id="cell_id_63" name="cell_id_63" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='left_border '>
-                            <input type="number" id="cell_id_64" name="cell_id_64" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_65" name="cell_id_65" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border '>
-                            <input type="number" id="cell_id_66" name="cell_id_66" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_67" name="cell_id_67" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_68" name="cell_id_68" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border '>
-                            <input type="number" id="cell_id_69" name="cell_id_69" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_70" name="cell_id_70" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class=''>
-                            <input type="number" id="cell_id_71" name="cell_id_71" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border '>
-                            <input type="number" id="cell_id_72" name="cell_id_72" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='left_border bottom_border '>
-                            <input type="number" id="cell_id_73" name="cell_id_73" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='bottom_border '>
-                            <input type="number" id="cell_id_74" name="cell_id_74" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border bottom_border '>
-                            <input type="number" id="cell_id_75" name="cell_id_75" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='bottom_border '>
-                            <input type="number" id="cell_id_76" name="cell_id_76" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='bottom_border '>
-                            <input type="number" id="cell_id_77" name="cell_id_77" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border bottom_border '>
-                            <input type="number" id="cell_id_78" name="cell_id_78" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='bottom_border '>
-                            <input type="number" id="cell_id_79" name="cell_id_79" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='bottom_border '>
-                            <input type="number" id="cell_id_80" name="cell_id_80" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                        <td class='right_border bottom_border '>
-                            <input type="number" id="cell_id_81" name="cell_id_81" class="cell_inp" maxlength=1 size=1 min=1 max=9>
-                        </td>
-                    </tr>
+                    <?php
+                        //Building the Table for sudoku
+                        $html = '';
+                        
+                        for($x=0;$x<9;$x++){  
+                            for($y=0;$y<9;$y++){
+                                $temp = '';
+                                if($y == 0){
+                                    $temp .= "left_border ";
+                                }
+                                if($x == 0){
+                                    $temp .= "top_border ";
+                                }
+                                if($y == 2 || $y == 5 || $y == 8){
+                                    $temp .= "right_border ";
+                                }
+                                if($x == 2 || $x == 5 || $x == 8){
+                                    $temp .= "bottom_border ";
+                                }
+
+                                $html .= "<td class='$temp'>";
+                                $html .= "<input type=\"number\" id=\"cell_id_".$x."_".$y."\" name=\"cell_id_".$x."_".$y."\" class=\"cell_inp\" maxlength=\"1\" size=\"1\" min=\"1\" max=\"9\">";
+                                $html .= "</td>";
+                            
+                                if($x == 8 && $y == 8){
+                                    $html .= '</tr>';
+                                }elseif($y == 8){
+                                    $html .= '</tr><tr>';
+                                }
+                            }
+                        }
+                    echo $html;
+                    ?>
                 </table>
             </div>
             <div class="button-Contaitner" style="display: flex;justify-content: center;align-items: center;padding-top:5px;">
