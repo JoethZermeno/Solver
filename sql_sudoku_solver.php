@@ -4,11 +4,11 @@ parse_str($_POST['data'], $searcharray);
 
 convert_inArr_to_2dArr($searcharray);
 
+//declare 2D array
+$solved_sudoku_array = array(array());
 
 function convert_inArr_to_2dArr($searcharray){
-
-    //declare 2D array
-    $sudoku_array = array(array());
+    global $solved_sudoku_array;
 
     $counterRow = 0;
     $counterCol = 0;
@@ -46,7 +46,13 @@ function convert_inArr_to_2dArr($searcharray){
     check_if_valid_inp_sudoku($sudoku_array);
 
     //Brute force method
-    //brute_force_solver($sudoku_array,0,0);
+    brute_force_solver($sudoku_array,0,0,False);
+    foreach($solved_sudoku_array as $rowArr){
+        foreach($rowArr as $x){
+            echo $x;
+        }
+        echo '<br>';
+    }
 }
 
 function check_if_valid_inp_sudoku($sudoku_array){
@@ -241,10 +247,46 @@ function check_if_valid_3x3($arr){
     }
     return 0;
 }
+
+
 //45 is the sum of 1-9
-function brute_force_solver($arr,$curCol,$curRow){
+function brute_force_solver(&$sudoku_array,$rowCnt,$columnCnt,$solved){
+    global $solved_sudoku_array;
 
+    if($solved){
+        $solved_sudoku_array = $sudoku_array;
+        return;
+    }
+
+    if($columnCnt > 8){
+        $rowCnt++;
+        $columnCnt = 0;
+    }
+
+    if($rowCnt > 8){
+        $solved = true;
+        $solved_sudoku_array = $sudoku_array;
+        return;
+    }
+
+    if($sudoku_array[$rowCnt][$columnCnt] == 0){
+        for($x=1;$x<=9;$x++){
+            $sudoku_array[$rowCnt][$columnCnt] = $x;
+
+            //echo "<script>document.getElementByID('').value = $x;</script>"
+
+            if(check_if_valid_row($sudoku_array) == 0 && check_if_valid_col($sudoku_array) == 0 && check_if_valid_3x3($sudoku_array) == 0){
+                brute_force_solver($sudoku_array,$rowCnt,$columnCnt+1,$solved);
+
+                if($solved){
+                    return;
+                }
+            }
+
+            $sudoku_array[$rowCnt][$columnCnt] = 0;
+        }
+    }else{
+        brute_force_solver($sudoku_array,$rowCnt,$columnCnt+1,$solved);
+    }
 }
-
-
 ?>
