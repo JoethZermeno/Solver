@@ -36,6 +36,7 @@ for($x=1;$x<9*9+1;$x++){
 ?>
 
 <!DOCTYPE html>
+<html lang="en">
     <script type="text/javascript" language="javascript" >
         function solveSudoku(){
 
@@ -62,6 +63,13 @@ for($x=1;$x<9*9+1;$x++){
         }
     </script>
     <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <style>
             table{
@@ -89,9 +97,13 @@ for($x=1;$x<9*9+1;$x++){
         </style>
     </head>
     <body>
+        <header>
+            <i class="fa-solid fa-puzzle-piece"></i>
+            <a class="logo" href="home.php">Sudoku.com</a>
+        </header>
         <form name="sudokuContainer" id="sudokuContainer" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <div style="display: flex;justify-content: center;align-items: center;">
-                <table>
+            <div class="container">
+                <table class="container_Table">
                     <tr>
                         <td class='left_border top_border '>
                             <input type="number" id="cell_id_1" name="cell_id_1" class="cell_inp" maxlength=1 size=1 min=1 max=9>
@@ -355,10 +367,20 @@ for($x=1;$x<9*9+1;$x++){
                     </tr>
                 </table>
             </div>
-            <div style="display: flex;justify-content: center;align-items: center;padding-top:5px;">
-                <input type="button" value="Solve" onClick="solveSudoku()"/>
+            <div class="button-Contaitner" style="display: flex;justify-content: center;align-items: center;padding-top:5px;">
+                <button type="button" value="Solve" onClick="solveSudoku()">Solve</button>
             </div>
         </form>
         <div id="results"></div>
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2024 Sudoku.com . Creative Commons.</p>
+                <nav class="footer-nav">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Contact Us</a>
+                </nav>
+            </div>
+        </footer>
     </body>
 </html>
