@@ -53,6 +53,16 @@ function convert_inArr_to_2dArr($searcharray){
         }
         echo '<br>';
     }
+
+    /*
+    test_solver($sudoku_array,0,0);
+    foreach($sudoku_array as $rowArr){
+        foreach($rowArr as $x){
+            echo $x;
+        }
+        echo '<br>';
+    }
+    */
 }
 
 function check_if_valid_inp_sudoku($sudoku_array){
@@ -248,6 +258,12 @@ function check_if_valid_3x3($arr){
     return 0;
 }
 
+//Function checks if sudoku board is valid
+//Return: true if valid, false otherwise
+//Param: entire sudoku arr
+function check_valid($arr) {
+    return check_if_valid_row($arr) == 0 && check_if_valid_col($arr) == 0 && check_if_valid_3x3($arr) == 0;
+}
 
 //45 is the sum of 1-9
 function brute_force_solver(&$sudoku_array,$rowCnt,$columnCnt,$solved){
@@ -288,5 +304,31 @@ function brute_force_solver(&$sudoku_array,$rowCnt,$columnCnt,$solved){
     }else{
         brute_force_solver($sudoku_array,$rowCnt,$columnCnt+1,$solved);
     }
+}
+
+function test_solver(&$board, $r, $c) {
+    global $solved_sudoku_array;
+    if ($r == 9) {
+        return true;
+    }
+    
+    else if ($c == 9){
+        return test_solver($board, $r+1, 0);
+    }
+
+    if ($board[$r][$c] != 0) {
+        return test_solver($board, $r, $c+1);
+    }
+
+    for ($x = 1; $x <= 9; $x++) {
+        if (check_valid($board, $r, $c, $x)) {
+            $board[$r][$c] = $x;
+            if (test_solver($board, $r, $c+1)) {
+                return true;
+            }
+            $board[$r][$c] = 0;
+        }
+    }
+    return false;
 }
 ?>
